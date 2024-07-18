@@ -1,0 +1,63 @@
+---
+- name: Install networking and virtualization tools on Ubuntu
+  hosts: all
+  become: true
+
+  tasks:
+    #- name: Update apt cache
+    #  ansible.builtin.apt:
+    #    update_cache: true
+    
+    - name: setfact
+      set_fact:
+        arch: "{{ ansible_architecture }}"
+
+    - name: Install qemu
+      ansible.builtin.apt:
+        name: qemu-system
+        state: present
+
+    - name: Install dhclient
+      ansible.builtin.apt:
+        name: isc-dhcp-client
+        state: present
+
+    - name: Install openbsd-netcat
+      ansible.builtin.apt:
+        name: netcat-openbsd
+        state: present
+
+    - name: Install virt-viewer
+      ansible.builtin.apt:
+        name: virt-viewer
+        state: present
+
+    - name: Install dnsmasq
+      apt:
+        name: dnsmasq
+        state: present
+
+    - name: Install dmidecode
+      ansible.builtin.apt:
+        name: dmidecode
+        state: present
+
+    - name: Install ebtables
+      ansible.builtin.apt:
+        name: ebtables
+        state: present
+
+    - name: Install virt-install
+      ansible.builtin.apt:
+        name: virtinst
+        state: present
+
+    - name: Install virt-manager
+      ansible.builtin.apt:
+        name: virt-manager
+        state: present
+
+    - name: Install bridge-utils
+      ansible.builtin.apt:
+        name: bridge-utils
+        state: present
