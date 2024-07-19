@@ -31,10 +31,11 @@
         port: 9090/tcp
         permanent: true 
         state: enabled
-    
+  
     - name:  reload firewalld
       ansible.posix.firewalld:
         state: reloaded
+
 
       
 
