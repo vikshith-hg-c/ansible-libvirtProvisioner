@@ -1,0 +1,23 @@
+yum_packages:
+  - qemu-kvm
+  - libvirt
+  - dhcp-client
+  - netcat
+  - virt-viewer
+  - dnsmasq
+  - dmidecode
+  - ebtables-services
+  - virt-install
+  - virt-manager
+  - bridge-utils
+  - cockpit
+
+dnf_packages:
+  - cockpit
+  - cockpit-machines
+
+services: 
+  - libvirtd
+  - cockpit.socket
+  - dnsmasq
+  - ebtables

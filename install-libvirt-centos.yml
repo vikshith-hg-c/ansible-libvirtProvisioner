@@ -2,90 +2,42 @@
 - name: Install networking and virtualization tools on CentOS
   hosts: all
   become: true
+  vars_files: 
+    - vars.yml
   
   tasks:
-
-    - name: Install qemu-kvm
+    - name: installing yum based packages 
       yum:
-        name: qemu-kvm
+        name: "{{ item }}"
         state: present
-        
-    - name: Install libvirtd
-      yum:
-        name: libvirt
-        state: present
-
-    - name: Install dhclient
-      become: true
-      yum:
-        name: dhcp-client
-        state: present
-
-    - name: Install netcat
-      yum:
-        name: netcat
-        state: present
-
-    - name: Install virt-viewer
-      yum:
-        name: virt-viewer
-        state: present
-
-    - name: Install dnsmasq
-      yum:
-        name: dnsmasq
-        state: present
-
-    - name: Install dmidecode
-      yum:
-        name: dmidecode
-        state: present
-
-    - name: Install ebtables
-      yum:
-        name: ebtables-services
-        state: present
-  
-
-    - name: Install virt-install
-      yum:
-        name: virt-install
-        state: present
-        
-       
-
-    - name: Install virt-manager
-      yum:
-        name: virt-manager
-        state: present
-        
-       
-
-    - name: Install bridge-utils
-      yum:
-        name: bridge-utils
-        state: present
-        
-       
+      loop: "{{yum_packages}}"
     
-   # - name: Install cockpit
-   #   dnf:
-   #     name: cockpit
-   #     state: present
-   #    
-   #    
-   #  
-   # - name: Install cockpit-machines
-   #   dnf:
-   #     name: cockpit-machines
-   #     state: present
-   #    
-   #    
-   #  
-   # - name: Enable cocpit socket
-   #   dnf:
-   #     name: cockpit.socket
-   #     state: present
-   #    
- #
+    - name: installing dnf packages 
+      ansible.builtin.dnf:
+        name: "{{item}}"
+        state: present
+      loop: "{{dnf_packages}}"
+
+    - name: enable services
+      systemd:
+        name: "{{item}}"
+        enabled: true
+        state: started
+      loop: "{{services}}"
+
+    - name: enable cockpit firewall
+      ansible.posix.firewalld:
+        service: cockpit
+        port: 9090/tcp
+        permanent: true 
+        state: enabled
+    
+    - name:  reload firewalld
+      ansible.posix.firewalld:
+        state: reloaded
+
+      
+
+        
+
  
