@@ -1,0 +1,91 @@
+---
+- name: Install networking and virtualization tools on CentOS
+  hosts: all
+  become: true
+  
+  tasks:
+
+    - name: Install qemu-kvm
+      yum:
+        name: qemu-kvm
+        state: present
+        
+    - name: Install libvirtd
+      yum:
+        name: libvirt
+        state: present
+
+    - name: Install dhclient
+      become: true
+      yum:
+        name: dhcp-client
+        state: present
+
+    - name: Install netcat
+      yum:
+        name: netcat
+        state: present
+
+    - name: Install virt-viewer
+      yum:
+        name: virt-viewer
+        state: present
+
+    - name: Install dnsmasq
+      yum:
+        name: dnsmasq
+        state: present
+
+    - name: Install dmidecode
+      yum:
+        name: dmidecode
+        state: present
+
+    - name: Install ebtables
+      yum:
+        name: ebtables-services
+        state: present
+  
+
+    - name: Install virt-install
+      yum:
+        name: virt-install
+        state: present
+        
+       
+
+    - name: Install virt-manager
+      yum:
+        name: virt-manager
+        state: present
+        
+       
+
+    - name: Install bridge-utils
+      yum:
+        name: bridge-utils
+        state: present
+        
+       
+    
+   # - name: Install cockpit
+   #   dnf:
+   #     name: cockpit
+   #     state: present
+   #    
+   #    
+   #  
+   # - name: Install cockpit-machines
+   #   dnf:
+   #     name: cockpit-machines
+   #     state: present
+   #    
+   #    
+   #  
+   # - name: Enable cocpit socket
+   #   dnf:
+   #     name: cockpit.socket
+   #     state: present
+   #    
+ #
+ 
