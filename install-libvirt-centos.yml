@@ -6,7 +6,17 @@
     - vars.yml
   
   tasks:
-    - name: installing yum based packages 
+    - name: Install yum-utils 
+      yum:
+        name: yum-utils
+        state: present
+
+    - name: Add {{item.name}} repository
+      shell: sudo yum-config-manager --add-repo "{{item.baseurl}}"
+      loop: "{{repo}}"
+    
+    - name: installing yum based packages
+      become: true 
       yum:
         name: "{{ item }}"
         state: present
@@ -35,6 +45,8 @@
     - name:  reload firewalld
       ansible.posix.firewalld:
         state: reloaded
+    
+   
 
 
       

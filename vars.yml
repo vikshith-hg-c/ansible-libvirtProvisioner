@@ -11,6 +11,8 @@ yum_packages:
   - virt-manager
   - bridge-utils
   - cockpit
+  - terraform
+  
 
 dnf_packages:
   - cockpit
@@ -21,3 +23,7 @@ services:
   - cockpit.socket
   - dnsmasq
   - ebtables
+
+repo:
+  - name: terraform
+    baseurl: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
